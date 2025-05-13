@@ -8,7 +8,6 @@ import './App.css';
 const App = () => {
   return (
     // <NavBar />
-    // Container
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
