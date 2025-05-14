@@ -8,7 +8,7 @@ import Footer from './components/Footer.tsx';
 
 const App = () => {
   return (
-    <>
+    <div style={{ paddingBottom: '60px' }}>
       <Router>
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -16,7 +16,7 @@ const App = () => {
         </Routes>
       </Router>
       <Footer />
-    </>
+    </div>
   );
 };
 
