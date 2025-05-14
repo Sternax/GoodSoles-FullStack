@@ -4,12 +4,14 @@
   justify-content: space-between;
   position: fixed;
   height: 60px;
+  width: 100vw;
   padding: 0.5rem;
   background-color: white;
   top: 0;
   left: 0;
   right: 0;
   z-index: 10;
+
   /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
 }
 
@@ -36,7 +38,9 @@
   width: 24px;
   height: 2px;
   background-color: black;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
   border-radius: 1px;
 }
 
@@ -81,7 +85,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   background-color: #f9f9f9;
   transform: translateX(-100%);

@@ -1,3 +1,7 @@
+#homePageContainer {
+  width: 100vw;
+}
+
 #homePageContent {
   width: 90%;
   margin: 0 auto;
@@ -8,7 +12,7 @@
   text-align: center;
   padding: 10px;
   padding-top: 15px;
-  border-bottom: 2px solid black;
+  width: 100%;
 }
 
 #productsContainer1 {
@@ -37,6 +41,14 @@
 
 #heroImg {
   margin-bottom: 25px;
+}
+
+#heroImg img {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
 }
 
 #middleHero {
