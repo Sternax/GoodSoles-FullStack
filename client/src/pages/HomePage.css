@@ -1,0 +1,105 @@
+#homePageContent {
+  width: 90%;
+  margin: 0 auto;
+}
+
+#saleBanner {
+  background-color: #ff8a00;
+  text-align: center;
+  padding: 10px;
+  padding-top: 15px;
+  border-bottom: 2px solid black;
+}
+
+#productsContainer1 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+#productsContainer2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 25px;
+}
+
+.productBox {
+  background-color: red;
+  height: 170px;
+  width: 100%;
+  text-align: center;
+}
+
+#heroImg {
+  margin-bottom: 25px;
+}
+
+#middleHero {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+#adidasHeroImgContainer {
+  position: relative;
+  display: block;
+}
+
+#adidasHeroImg {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+#adidasHeroLink {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  color: white;
+  text-decoration: underline;
+  font-size: 20px;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 6px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#spezialHero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
+}
+
+.spezialHeroText {
+  padding: 10px;
+  text-align: center;
+}
+
+#adidasHandball1Container {
+  display: block;
+  text-align: center;
+}
+
+#adidasHandball1 {
+  width: 100%;
+  display: block;
+  height: 210px;
+}
+
+#adidasHandball2Container {
+  display: block;
+  text-align: center;
+}
+
+#adidasHandball2 {
+  width: 100%;
+  display: block;
+  height: 210px;
+}

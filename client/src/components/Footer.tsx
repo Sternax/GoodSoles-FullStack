@@ -1,8 +1,9 @@
+import React from 'react';
 import './Footer.css';
 
 const Footer = () => {
   return (
-    <footer id="footer">
+    <div id="footer">
       <a href="#" className="footerLink">
         <img className="footerImg" src="/facebook.png" alt="facebook link" />
       </a>
@@ -12,7 +13,7 @@ const Footer = () => {
       <a href="#" className="footerLink">
         <img className="footerImg" src="/twitter.png" alt="twitter link" />
       </a>
-    </footer>
+    </div>
   );
 };
 
