@@ -1,0 +1,108 @@
+.mobile-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  height: 60px;
+  padding: 0.5rem;
+  background-color: white;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+}
+
+/* Hamburger button */
+.menu-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 24px;
+  height: 24px;
+}
+
+/* Hamburger-linjer */
+.hamburger span {
+  width: 24px;
+  height: 2px;
+  background-color: black;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  border-radius: 1px;
+}
+
+/* X-animation */
+.menu-button.open .hamburger span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-button.open .hamburger span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-button.open .hamburger span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Logo centered */
+.logo-container {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.logo {
+  height: 32px;
+}
+
+/* Cart button */
+.cart-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.cart-icon {
+  height: 35px;
+}
+
+/* Sidomeny som glider in */
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #f9f9f9;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 5;
+  padding-top: 70px; /* för navbarens höjd */
+}
+
+/* När meny är synlig */
+.side-menu.show {
+  transform: translateX(0);
+}
+
+/* Menylistan */
+.menu-items {
+  list-style: none;
+  padding: 2rem;
+  font-size: 1.2rem;
+}
+
+.menu-items li {
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+}
