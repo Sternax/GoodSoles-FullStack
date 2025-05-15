@@ -89,11 +89,11 @@ const HomePage = () => {
         <div id="productsContainer2">
           {products.slice(6, 12).map((product) => (
             <div key={product.id} className="productBox">
-              {/* <img
+              <img
                 src={product.image}
-                alt={`${product.brand} ${product.name}`}
+                alt={`${product.brand} ${product.model}`}
                 className="productImage"
-              /> */}
+              />
               <h3>{product.brand}</h3>
               <p>{product.model}</p>
               <p>${product.price + ';-'}</p>
