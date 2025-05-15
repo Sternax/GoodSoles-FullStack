@@ -1,6 +1,7 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const sqlite = require('sqlite');
+const cors = require('cors');
 
 let database;
 (async () => {
@@ -14,6 +15,7 @@ let database;
 })();
 
 const app = express();
+app.use(cors());
 
 app.get('/', (req, res) => {
   database.all('SELECT * FROM productTable').then((productTable) => {
