@@ -37,6 +37,16 @@
   height: 170px;
   width: 100%;
   text-align: center;
+  display: flex;
+  justify-items: space-evenly;
+  align-items: center;
+  flex-direction: column;
+}
+
+.productImage {
+  display: block;
+  height: auto;
+  width: 165px;
 }
 
 #heroImg {
