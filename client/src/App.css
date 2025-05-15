@@ -1,4 +1,7 @@
 #app {
   padding-bottom: 60px;
   padding-top: 60px;
+  margin: 0;
+  width: 100vw;
+  box-sizing: border-box;
 }
