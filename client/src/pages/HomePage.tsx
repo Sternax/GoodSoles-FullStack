@@ -1,7 +1,9 @@
 import './HomePage.css';
+import ImageCarousel from '../components/ImageCarousel';
 import { useEffect, useState } from 'react';
 import type { Product } from '../components/productsAPI';
 import { fetchProducts } from '../components/productsAPI';
+import { addToCart } from '../components/Cart';
 
 const HomePage = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -35,9 +37,7 @@ const HomePage = () => {
         <div id="saleBanner">
           RIGHT NOW: <br /> SPRING CLEARANCE: 30% ON ALL THINGS NIKE
         </div>
-        <div id="heroImg">
-          <img src="/heroimg.png" alt="Hero Image" />
-        </div>
+        <ImageCarousel />
       </div>
       <div id="homePageContent">
         <div id="productsContainer1">
@@ -48,14 +48,19 @@ const HomePage = () => {
                 alt={`${product.brand} ${product.model}`}
                 className="productImage"
               />
-              <h3>{product.brand}</h3>
-              <p>{product.model}</p>
-              <p>${product.price + ';-'}</p>
-              <button id="productBtn">Add To Cart</button>
+              <div className="productBoxText">
+                <h3>{product.brand}</h3>
+                <p>{product.model}</p>
+                <p>{product.price + ';-'}</p>
+              </div>
+
+              <button className="productBtn" onClick={() => addToCart(product)}>
+                Add To Cart
+              </button>
             </div>
           ))}
         </div>
-        {/* Images of shoes in the middle of the page */}
+
         <div id="middleHero">
           <div id="adidasHeroImgContainer">
             <img
@@ -95,9 +100,16 @@ const HomePage = () => {
                 alt={`${product.brand} ${product.model}`}
                 className="productImage"
               />
-              <h3>{product.brand}</h3>
-              <p>{product.model}</p>
-              <p>${product.price + ';-'}</p>
+
+              <div className="productBoxText">
+                <h3>{product.brand}</h3>
+                <p>{product.model}</p>
+                <p>{product.price + ';-'}</p>
+              </div>
+
+              <button className="productBtn" onClick={() => addToCart(product)}>
+                Add To Cart
+              </button>
             </div>
           ))}
         </div>
