@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 type ProductType = {
   id: number;
   brand: string;
@@ -9,21 +11,25 @@ type CartItem = ProductType & {
   quantity: number;
 };
 
-export const addToCart = (product: ProductType) => {
-  const cart: CartItem[] = JSON.parse(localStorage.getItem('cart') || '[]');
-  const productIndex = cart.findIndex(
-    (item: { id: number }) => item.id === product.id,
-  );
+export const useCart = () => {
+  const [cart, setCart] = useState<CartItem[]>(() => {
+    return JSON.parse(localStorage.getItem('cart') || '[]');
+  });
 
-  if (productIndex !== -1) {
-    cart[productIndex].quantity += 1;
-  } else {
-    cart.push({
-      ...product,
-      quantity: 1,
-    });
-  }
+  const addToCart = (product: ProductType) => {
+    const updatedCart = [...cart];
+    const existingItem = updatedCart.find((item) => item.id === product.id);
 
-  localStorage.setItem('cart', JSON.stringify(cart));
-  console.log('Cart updated:', cart);
+    if (existingItem) {
+      existingItem.quantity++;
+    } else {
+      updatedCart.push({ ...product, quantity: 1 });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+    setCart(updatedCart);
+    console.log('Cart updated:', updatedCart);
+  };
+
+  return { cart, addToCart };
 };

@@ -3,12 +3,14 @@ import ImageCarousel from '../components/ImageCarousel';
 import { useEffect, useState } from 'react';
 import type { Product } from '../components/productsAPI';
 import { fetchProducts } from '../components/productsAPI';
-import { addToCart } from '../components/Cart';
+import { useCart } from '../components/CartContext';
+import toast from 'react-hot-toast';
 
 const HomePage = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { addToCart } = useCart();
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -54,7 +56,15 @@ const HomePage = () => {
                 <p>{product.price + ';-'}</p>
               </div>
 
-              <button className="productBtn" onClick={() => addToCart(product)}>
+              <button
+                className="productBtn"
+                onClick={() => {
+                  addToCart(product);
+                  toast.success(
+                    `${product.brand} ${product.model} added to cart!`,
+                  );
+                }}
+              >
                 Add To Cart
               </button>
             </div>
@@ -107,7 +117,15 @@ const HomePage = () => {
                 <p>{product.price + ';-'}</p>
               </div>
 
-              <button className="productBtn" onClick={() => addToCart(product)}>
+              <button
+                className="productBtn"
+                onClick={() => {
+                  addToCart(product);
+                  toast.success(
+                    `${product.brand} ${product.model} added to cart!`,
+                  );
+                }}
+              >
                 Add To Cart
               </button>
             </div>

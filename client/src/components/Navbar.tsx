@@ -1,17 +1,25 @@
 import { useState } from 'react';
 import './Navbar.css';
+import Badge from '@mui/material/Badge';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { IconButton } from '@mui/material';
+import { useCart } from './CartContext';
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const closeMenu = () => setMenuOpen(false);
+  const { cart } = useCart();
 
   return (
     <>
       <nav className="mobile-navbar">
         {/* Hamburger menu */}
-        <button className={`menu-button ${menuOpen ? 'open' : ''}`} onClick={toggleMenu}>
+        <button
+          className={`menu-button ${menuOpen ? 'open' : ''}`}
+          onClick={toggleMenu}
+        >
           <div className="hamburger">
             <span></span>
             <span></span>
@@ -25,9 +33,21 @@ export default function Navbar() {
         </div>
 
         {/* Cart icon */}
-        <button className="cart-button">
+        {/* <button className="cart-button">
           <img src="/shoe-box.png" alt="Cart" className="cart-icon" />
-        </button>
+        </button> */}
+        <IconButton color="inherit" aria-label="cart">
+          <Badge
+            badgeContent={cart.reduce(
+              (total, item) => total + item.quantity,
+              0,
+            )}
+            color="error"
+            showZero
+          >
+            <ShoppingCartIcon />
+          </Badge>
+        </IconButton>
       </nav>
 
       {/* Slide-in menu */}

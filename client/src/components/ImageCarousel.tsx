@@ -11,7 +11,16 @@ const imageCarousel = () => {
   };
 
   return (
-    <Carousel responsive={responsive}>
+    <Carousel
+      rewind={true}
+      rewindWithAnimation={true}
+      infinite={true}
+      showDots={true}
+      arrows={false}
+      responsive={responsive}
+      autoPlay={true}
+      autoPlaySpeed={5000}
+    >
       <div>
         <img className="carouselImage" src="heroimg.png" alt="Carousel Image" />
       </div>
