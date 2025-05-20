@@ -34,9 +34,21 @@
 
 .productBox {
   background-color: red;
-  height: 170px;
+  height: 190px;
   width: 100%;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#productBtn {
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 #heroImg {

@@ -51,6 +51,7 @@ const HomePage = () => {
               <h3>{product.brand}</h3>
               <p>{product.model}</p>
               <p>${product.price + ';-'}</p>
+              <button id="productBtn">Add To Cart</button>
             </div>
           ))}
         </div>
