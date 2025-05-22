@@ -5,6 +5,7 @@
 #homePageContent {
   width: 90%;
   margin: 0 auto;
+  margin-top: 10px;
 }
 
 #saleBanner {
@@ -33,20 +34,40 @@
 }
 
 .productBox {
-  background-color: red;
-  height: 170px;
+  background-color: lightgray;
+  height: 190px;
   width: 100%;
   text-align: center;
   display: flex;
-  justify-items: space-evenly;
-  align-items: center;
   flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.productBoxText p:last-of-type {
+  margin-top: 8px;
+  font-weight: 600;
+  color: green;
 }
 
 .productImage {
-  display: block;
+  width: 70%;
   height: auto;
-  width: 165px;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+.productBtn {
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px 0;
+  box-shadow: 0px 10px 22px -7px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: 0px 10px 22px -7px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 10px 22px -7px rgba(0, 0, 0, 0.6);
+  touch-action: manipulation; /* Improves touch responsiveness */
+  cursor: pointer;
 }
 
 #heroImg {
