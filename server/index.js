@@ -33,7 +33,7 @@ app.post('/login', express.urlencoded({ extended: true }), async (req, res) => {
     );
 
     if (user) {
-      console.log('Login successful for user:', username);
+      console.log(`Login successful for user: ${username} (ID: ${user.id})`);
       res.json({
         success: true,
         user: {

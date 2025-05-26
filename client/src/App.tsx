@@ -29,7 +29,6 @@ const App = () => {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/cart" element={<CartPage />} />
           </Routes>
-
           <Footer />
         </CartProvider>
       </Router>
