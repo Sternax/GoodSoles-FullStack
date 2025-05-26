@@ -30,7 +30,7 @@ app.post('/login', express.json(), (req, res) => {
   console.log('Login attempt:', { username, password });
 
   database
-    .get('SELECT * FROM userTable WHERE username = ? AND password = ?', [
+    .get('SELECT * FROM userAccounts WHERE username = ? AND password = ?', [
       username,
       password,
     ])
@@ -51,6 +51,8 @@ app.post('/login', express.json(), (req, res) => {
         .status(500)
         .json({ success: false, message: 'Internal server error' });
     });
+
+  console.log(username, password);
 });
 
 app.listen(8080, () =>
