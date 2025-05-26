@@ -28,7 +28,6 @@ const LoginPage = () => {
         navigate('/login-success');
         toast.success('Login successful!');
       } else {
-        // alert(result.message || 'Login failed. Please try again.');
         toast.error(result.message || 'Login failed. Please try again.');
       }
     } catch (error) {
