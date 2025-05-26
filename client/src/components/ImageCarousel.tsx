@@ -22,19 +22,26 @@ const imageCarousel = () => {
       autoPlaySpeed={5000}
     >
       <div>
-        <img className="carouselImage" src="heroimg.png" alt="Carousel Image" />
+        <img className="carouselImage" src="jordan-hero.jpg" alt="Carousel Image" />
       </div>
       <div>
         <img
           className="carouselImage"
-          src="heroimg2.png"
+          src="newbal-hero.jpg"
           alt="Carousel Image"
         />
       </div>
       <div>
         <img
           className="carouselImage"
-          src="heroimg3.jpg"
+          src="samba-hero.jpg"
+          alt="Carousel Image"
+        />
+      </div>
+      <div>
+        <img
+          className="carouselImage"
+          src="adidasmoto-hero.jpg"
           alt="Carousel Image"
         />
       </div>

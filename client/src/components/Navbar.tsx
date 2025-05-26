@@ -60,7 +60,9 @@ export default function Navbar() {
         <ul className="menu-items">
           <li onClick={closeMenu}>SNEAKERS</li>
           <li onClick={closeMenu}>SALE</li>
-          <li onClick={closeMenu}>ABOUT</li>
+          <li onClick={closeMenu}>
+            <Link to="/favorites"> FAVORITES </Link>
+          </li>
           <li onClick={closeMenu}>
             <Link to="/login">SIGN IN</Link>
           </li>

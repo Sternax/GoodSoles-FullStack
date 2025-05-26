@@ -16,6 +16,7 @@ let database;
 
 const app = express();
 app.use(cors());
+app.use(express.json());
 
 app.get('/', (req, res) => {
   database.all('SELECT * FROM productTable').then((productTable) => {
@@ -97,6 +98,56 @@ app.post(
     }
   },
 );
+
+app.get('/favorites/:userId', async (req, res) => {
+  const userId = req.params.userId;
+  try {
+    const favorites = await database.all(`
+      SELECT productTable.*
+      FROM favoritesTable
+      JOIN productTable ON favoritesTable.product_id = productTable.id
+      WHERE favoritesTable.user_id = ?
+    `, [userId]);
+
+    res.json(favorites);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Lägg till favorit
+app.post('/favorites', async (req, res) => {
+  const { user_id, product_id } = req.body;
+  try {
+    await database.run(`
+      INSERT INTO favoritesTable (user_id, product_id)
+      VALUES (?, ?)
+    `, [user_id, product_id]);
+
+    res.json({ message: 'Favorit tillagd' });
+  } catch (err) {
+    if (err.message.includes('UNIQUE')) {
+      res.status(400).json({ error: 'Favoriten finns redan' });
+    } else {
+      res.status(500).json({ error: err.message });
+    }
+  }
+});
+
+// Ta bort favorit
+app.delete('/favorites', async (req, res) => {
+  const { user_id, product_id } = req.body;
+  try {
+    await database.run(`
+      DELETE FROM favoritesTable
+      WHERE user_id = ? AND product_id = ?
+    `, [user_id, product_id]);
+
+    res.json({ message: 'Favorit borttagen' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 app.listen(8080, () =>
   console.log('Server running on port http://localhost:8080/'),
