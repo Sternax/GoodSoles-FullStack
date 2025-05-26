@@ -31,7 +31,7 @@ export default function Navbar() {
         {/* Logo */}
         <div className="logo-container">
           <Link to="/">
-          <img src="/logo.png" alt="Logo" className="logo" />
+            <img src="/logo.png" alt="Logo" className="logo" />
           </Link>
         </div>
 
@@ -40,18 +40,18 @@ export default function Navbar() {
           <img src="/shoe-box.png" alt="Cart" className="cart-icon" />
         </button> */}
         <Link to="/cart">
-        <IconButton color="inherit" aria-label="cart">
-          <Badge
-            badgeContent={cart.reduce(
-              (total, item) => total + item.quantity,
-              0,
-            )}
-            color="error"
-            showZero
-          >
-            <ShoppingCartIcon />
-          </Badge>
-        </IconButton>
+          <IconButton color="inherit" aria-label="cart">
+            <Badge
+              badgeContent={cart.reduce(
+                (total, item) => total + item.quantity,
+                0,
+              )}
+              color="error"
+              showZero
+            >
+              <ShoppingCartIcon />
+            </Badge>
+          </IconButton>
         </Link>
       </nav>
 
@@ -61,7 +61,9 @@ export default function Navbar() {
           <li onClick={closeMenu}>SNEAKERS</li>
           <li onClick={closeMenu}>SALE</li>
           <li onClick={closeMenu}>ABOUT</li>
-          <li onClick={closeMenu}>SIGN IN</li>
+          <li onClick={closeMenu}>
+            <Link to="/login">SIGN IN</Link>
+          </li>
         </ul>
       </div>
     </>
