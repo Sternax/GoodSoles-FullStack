@@ -16,7 +16,6 @@ let database;
 
 const app = express();
 app.use(cors());
-app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
   database.all('SELECT * FROM productTable').then((productTable) => {
@@ -25,35 +24,79 @@ app.get('/', (req, res) => {
   });
 });
 
-app.post('/login', express.json(), (req, res) => {
+app.post('/login', express.urlencoded({ extended: true }), async (req, res) => {
   const { username, password } = req.body;
-  console.log('Login attempt:', { username, password });
+  try {
+    const user = await database.get(
+      'SELECT * FROM userAccounts WHERE username = ? AND password = ?',
+      [username, password],
+    );
 
-  database
-    .get('SELECT * FROM userAccounts WHERE username = ? AND password = ?', [
-      username,
-      password,
-    ])
-    .then((user) => {
-      if (user) {
-        res.json({ success: true, user });
-        console.log('Login successful for user:', user);
-      } else {
-        res
-          .status(401)
-          .json({ success: false, message: 'Invalid credentials' });
-        console.log('Login failed for username:', username);
+    if (user) {
+      console.log('Login successful for user:', username);
+      res.json({
+        success: true,
+        user: {
+          id: user.id,
+          username: user.username,
+        },
+      });
+    } else {
+      return res.status(401).json({
+        success: false,
+        message: 'Invalid username or password',
+      });
+    }
+  } catch (error) {
+    console.error('Login error:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Internal server error',
+    });
+  }
+});
+
+app.post(
+  '/register',
+  express.urlencoded({ extended: true }),
+  async (req, res) => {
+    const { username, password } = req.body;
+
+    if (!username || !password) {
+      return res.status(400).json({
+        success: false,
+        message: 'Username and password are required',
+      });
+    }
+
+    try {
+      const existingUser = await database.get(
+        'SELECT * FROM userAccounts WHERE username = ?',
+        [username],
+      );
+      console.log('existingUser:', existingUser);
+
+      if (existingUser) {
+        return res
+          .status(400)
+          .json({ success: false, message: 'Username already exists' });
       }
-    })
-    .catch((error) => {
+
+      await database.run(
+        'INSERT INTO userAccounts (username, password) VALUES (?, ?)',
+        [username, password],
+      );
+
+      console.log('User registered successfully:', username);
+      res.json({ success: true, message: 'User registered successfully' });
+    } catch (error) {
       console.error('Database error:', error);
       res
         .status(500)
         .json({ success: false, message: 'Internal server error' });
-    });
-
-  console.log(username, password);
-});
+    }
+  },
+);
 
 app.listen(8080, () =>
   console.log('Server running on port http://localhost:8080/'),

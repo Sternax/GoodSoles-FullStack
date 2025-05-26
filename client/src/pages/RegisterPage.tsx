@@ -1,8 +1,8 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import type { FormEvent } from 'react';
 import toast from 'react-hot-toast';
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -14,7 +14,7 @@ const LoginPage = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:8080/login', {
+      const response = await fetch('http://localhost:8080/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -24,48 +24,44 @@ const LoginPage = () => {
 
       const result = await response.json();
       if (result.success) {
-        navigate('/login-success');
-        toast.success('Login successful!');
+        navigate('/login');
+        toast.success('Registration successful! Please log in.');
       } else {
-        // alert(result.message || 'Login failed. Please try again.');
-        toast.error(result.message || 'Login failed. Please try again.');
+        toast.error(result.message || 'Registration failed. Please try again.');
       }
     } catch (error) {
-      console.error('Login error:', error);
-      alert('An error occurred while logging in. Please try again.');
+      console.error('Registration error:', error);
+      alert('An error occurred while registering. Please try again.');
     }
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="username">
-          E-mail
+    <div className="register-page">
+      <h1>Register</h1>
+      <form onSubmit={handleSubmit} method="post">
+        <div className="form-group">
+          <label htmlFor="username">E-mail</label>
           <input
-            type="username"
+            type="text"
             id="username"
             name="username"
             placeholder="example@example.com"
             required
           />
-        </label>
-        <label htmlFor="password">
-          Password
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
           <input
             type="password"
             id="password"
             name="password"
-            placeholder="********"
+            placeholder="**********"
             required
           />
-        </label>
-        <button type="submit">Login</button>
+        </div>
+        <button type="submit">Register</button>
       </form>
-      <p>
-        Don't have an account? <Link to="/register">REGISTER HERE</Link>.
-      </p>
     </div>
   );
 };
-
-export default LoginPage;
+export default RegisterPage;
