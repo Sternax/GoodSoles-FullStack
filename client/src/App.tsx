@@ -10,6 +10,7 @@ import './App.css';
 import Footer from './components/Footer.tsx';
 import Navbar from './components/Navbar.tsx';
 import CartPage from './pages/CartPage.tsx';
+import ProfilePage from './pages/ProfilePage.tsx';
 import FavoritesPage from './pages/FavoritesPage.tsx';
 import { Toaster } from 'react-hot-toast';
 import { CartProvider } from './components/CartContext.tsx';
