@@ -21,8 +21,73 @@ app.use(express.json());
 app.get('/', (req, res) => {
   database.all('SELECT * FROM productTable').then((productTable) => {
     res.send(productTable);
-    console.log('Product table:', productTable);
+    // console.log('Product table:', productTable);
   });
+});
+
+app.post(
+  '/profile',
+  express.urlencoded({ extended: true }),
+  async (req, res) => {
+    const { id, firstname, lastname, dateofbirth } = req.body;
+    console.log('Received profile data:', req.body);
+
+    if (!id || !firstname || !lastname || !dateofbirth) {
+      return res.status(400).json({
+        success: false,
+        message: 'All fields are required',
+      });
+    }
+    try {
+      const existingProfile = await database.get(
+        'SELECT * FROM userProfile WHERE id =?',
+        [id],
+      );
+      if (existingProfile) {
+        await database.run(
+          'UPDATE userProfile SET firstname = ?, lastname = ?, dateofbirth = ? WHERE id = ?',
+          [firstname, lastname, dateofbirth, id],
+        );
+      } else {
+        await database.run(
+          'INSERT INTO userProfile (id, firstname, lastname, dateofbirth) VALUES (?, ?, ?, ?)',
+          [id, firstname, lastname, dateofbirth],
+        );
+      }
+      console.log('Profile updated or created successfully for user ID:', id);
+      res.json({
+        success: true,
+        message: 'Profile updated or created successfully',
+      });
+    } catch (error) {
+      console.error('Error updating or creating profile:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Internal server error',
+      });
+    }
+  },
+);
+
+app.get('/profile/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const data = await database.get(
+      'SELECT firstname, lastname, dateofbirth FROM userProfile WHERE id = ?',
+      [id],
+    );
+    if (data) {
+      res.json({ success: true, data });
+    } else {
+      res.json({ success: true, data: {} });
+    }
+  } catch (error) {
+    console.error('Error fetching profile:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Internal server error',
+    });
+  }
 });
 
 app.post('/login', express.urlencoded({ extended: true }), async (req, res) => {
@@ -34,7 +99,7 @@ app.post('/login', express.urlencoded({ extended: true }), async (req, res) => {
     );
 
     if (user) {
-      console.log('Login successful for user:', username);
+      console.log(`Login successful for user: ${username} (ID: ${user.id})`);
       res.json({
         success: true,
         user: {
