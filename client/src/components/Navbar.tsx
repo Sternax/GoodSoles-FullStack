@@ -4,6 +4,7 @@ import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { IconButton } from '@mui/material';
 import { useCart } from './CartContext';
+import { Link } from 'react-router-dom';
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -29,13 +30,16 @@ export default function Navbar() {
 
         {/* Logo */}
         <div className="logo-container">
+          <Link to="/">
           <img src="/logo.png" alt="Logo" className="logo" />
+          </Link>
         </div>
 
         {/* Cart icon */}
         {/* <button className="cart-button">
           <img src="/shoe-box.png" alt="Cart" className="cart-icon" />
         </button> */}
+        <Link to="/cart">
         <IconButton color="inherit" aria-label="cart">
           <Badge
             badgeContent={cart.reduce(
@@ -48,6 +52,7 @@ export default function Navbar() {
             <ShoppingCartIcon />
           </Badge>
         </IconButton>
+        </Link>
       </nav>
 
       {/* Slide-in menu */}
