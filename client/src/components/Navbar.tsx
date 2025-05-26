@@ -64,6 +64,9 @@ export default function Navbar() {
           <li onClick={closeMenu}>
             <Link to="/login">SIGN IN</Link>
           </li>
+          <li onClick={closeMenu}>
+            <Link to="/profile">PROFILE</Link>
+          </li>
         </ul>
       </div>
     </>
