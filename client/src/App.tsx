@@ -6,6 +6,7 @@ import CheckoutPage from './pages/CheckoutPage.tsx';
 import LoginPage from './pages/LoginPage.tsx';
 import LoginSuccessPage from './pages/LoginSuccessPage.tsx';
 import RegisterPage from './pages/RegisterPage.tsx';
+import ProfilePage from './pages/ProfilePage.tsx';
 import './App.css';
 import Footer from './components/Footer.tsx';
 import Navbar from './components/Navbar.tsx';
@@ -28,8 +29,8 @@ const App = () => {
             <Route path="/login-success" element={<LoginSuccessPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/cart" element={<CartPage />} />
+            <Route path="/profile" element={<ProfilePage />}></Route>
           </Routes>
-
           <Footer />
         </CartProvider>
       </Router>
