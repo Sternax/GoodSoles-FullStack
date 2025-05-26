@@ -29,7 +29,7 @@ const App = () => {
             <Route path="/login-success" element={<LoginSuccessPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/cart" element={<CartPage />} />
-            <Route path="/profile" element={<ProfilePage />}></Route>
+            <Route path="/profile" element={<ProfilePage />} />
           </Routes>
           <Footer />
         </CartProvider>
