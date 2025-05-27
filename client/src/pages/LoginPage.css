@@ -4,11 +4,12 @@ form {
   align-items: center;
   justify-content: center;
   width: 100%;
+  margin-bottom: 1rem;
 }
 
 form button {
   display: block;
-  margin: 1rem auto 1rem;
+  margin: 0.5rem auto 1rem;
   padding: 0.55rem 1.5rem;
   background-color: green;
   color: white;
@@ -35,7 +36,12 @@ form button {
   align-items: center;
   justify-content: center;
   margin: 0.5rem 0;
-  font-weight: 600;
+  font-weight: 400;
+}
+
+.form-input-container label {
+  margin-bottom: 20px;
+  color: #333;
 }
 
 .form-input-container input {

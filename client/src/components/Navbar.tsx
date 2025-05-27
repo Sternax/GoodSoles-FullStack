@@ -35,10 +35,6 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Cart icon */}
-        {/* <button className="cart-button">
-          <img src="/shoe-box.png" alt="Cart" className="cart-icon" />
-        </button> */}
         <Link to="/cart">
           <IconButton color="inherit" aria-label="cart">
             <Badge
@@ -65,6 +61,9 @@ export default function Navbar() {
           </li>
           <li onClick={closeMenu}>
             <Link to="/login">SIGN IN</Link>
+          </li>
+          <li onClick={closeMenu}>
+            <Link to="/profile">PROFILE</Link>
           </li>
         </ul>
       </div>
