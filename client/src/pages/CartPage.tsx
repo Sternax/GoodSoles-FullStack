@@ -1,5 +1,8 @@
 import { useCart } from '../components/CartContext';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import './CartPage.css';
 
 const CartPage = () => {
@@ -10,12 +13,12 @@ const CartPage = () => {
 
   const totalPrice = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
-    0
+    0,
   );
 
   const addToFavorites = async (productId: number) => {
     if (!userId) {
-      alert('Du måste vara inloggad för att spara favoriter.');
+      toast.error('You must be logged in to save favorites.');
       return;
     }
 
@@ -30,22 +33,22 @@ const CartPage = () => {
       });
 
       if (response.ok) {
-        alert('Tillagd i favoriter!');
-        console.log('Favorit tillagd:', productId);
+        toast.success('Added to favorites!');
+        console.log('Favorite added:', productId);
       } else {
         const errorData = await response.json();
-        console.error('Fel vid favorit:', errorData);
-        alert(errorData.message || 'Något gick fel.');
+        console.error('Favorite error:', errorData);
+        toast.error(errorData.message || 'Something went wrong.');
       }
     } catch (error) {
-      console.error('Favoritfel:', error);
-      alert('Kunde inte lägga till favorit.');
+      console.error('Favorite error:', error);
+      toast.error('Could not add to favorites.');
     }
   };
 
   return (
     <div className="cart-page">
-      <h1 className="cart-title">Your Cart</h1>
+      <h1 className="cart-title">YOUR CART</h1>
 
       {cart.length === 0 ? (
         <p>Your cart is empty.</p>
@@ -72,18 +75,21 @@ const CartPage = () => {
                         {item.price * item.quantity} kr
                       </div>
                     </div>
+
                     <div className="cart-item-buttons">
-                      <button
-                        className="remove-btn"
-                        onClick={() => removeFromCart(item.id)}
-                      >
-                        Remove
-                      </button>
                       <button
                         className="favorite-btn"
                         onClick={() => addToFavorites(item.id)}
+                        title="Add to favorites"
                       >
-                        ♥ Favorit
+                        <FavoriteIcon />
+                      </button>
+                      <button
+                        className="remove-btn"
+                        onClick={() => removeFromCart(item.id)}
+                        title="Remove from cart"
+                      >
+                        <DeleteForeverIcon />
                       </button>
                     </div>
                   </div>
@@ -95,7 +101,7 @@ const CartPage = () => {
           </div>
 
           <Link to="/checkout" className="checkout-btn">
-            Go to Checkout
+            GO TO CHECKOUT
           </Link>
         </>
       )}

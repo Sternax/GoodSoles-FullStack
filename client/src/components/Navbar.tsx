@@ -40,7 +40,7 @@ export default function Navbar() {
           <img src="/shoe-box.png" alt="Cart" className="cart-icon" />
         </button> */}
         <Link to="/cart">
-          <IconButton color="inherit" aria-label="cart">
+          <IconButton style={{ color: 'black' }} aria-label="cart">
             <Badge
               badgeContent={cart.reduce(
                 (total, item) => total + item.quantity,
