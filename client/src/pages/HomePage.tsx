@@ -5,6 +5,11 @@ import type { Product } from '../components/productsAPI';
 import { fetchProducts } from '../components/productsAPI';
 import { useCart } from '../components/CartContext';
 import toast from 'react-hot-toast';
+import { Grow } from '@mui/material';
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import { Link } from 'react-router-dom';
 
 const HomePage = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -26,6 +31,13 @@ const HomePage = () => {
     loadProducts();
   }, []);
 
+  const responsive = {
+    all: {
+      breakpoint: { max: 4000, min: 0 },
+      items: 1,
+    },
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -36,38 +48,63 @@ const HomePage = () => {
   return (
     <div id="homePageContainer">
       <div id="headerContainer">
-        <div id="saleBanner">
-          RIGHT NOW: <br /> SPRING CLEARANCE: 30% ON ALL THINGS NIKE
-        </div>
+        <Carousel
+          className="textCarousel"
+          swipeable={false}
+          draggable={false}
+          showDots={false}
+          responsive={responsive}
+          infinite={true}
+          autoPlay={true}
+          autoPlaySpeed={6000}
+          customTransition="all .5"
+          transitionDuration={500}
+          deviceType={'mobile'}
+          removeArrowOnDeviceType={['mobile', 'tablet', 'desktop']}
+        >
+          <div className="carouselInnerText">
+            SPRING CLEARANCE: 30% OFF ALL THINGS NIKE
+          </div>
+          <div className="carouselInnerText">
+            SUMMER KICKS ARE HERE: 20% OFF SELECT SNEAKERS
+          </div>
+          <div className="carouselInnerText">
+            SIGN UP FOR OUR NEWSLETTER FOR 10% OFF YOUR FIRST ORDER
+          </div>
+          <div className="carouselInnerText">FREE SHIPPING OVER 1500kr</div>
+        </Carousel>
         <ImageCarousel />
       </div>
       <div id="homePageContent">
         <div id="productsContainer1">
-          {products.slice(0, 6).map((product) => (
-            <div key={product.id} className="productBox">
-              <img
-                src={product.image}
-                alt={`${product.brand} ${product.model}`}
-                className="productImage"
-              />
-              <div className="productBoxText">
-                <h3>{product.brand}</h3>
-                <p>{product.model}</p>
-                <p>{product.price + ';-'}</p>
-              </div>
+          {products.slice(0, 6).map((product, index) => (
+            <Grow in={true} timeout={300 + index * 500} key={product.id}>
+              <div key={product.id} className="productBox">
+                <Link to={`/product/${product.model}`} className="productLink">
+                  <img
+                    src={product.image}
+                    alt={`${product.brand} ${product.model}`}
+                    className="productImage"
+                  />
+                </Link>
+                <div className="productBoxText">
+                  <p>{product.brand + ' ' + product.model}</p>
+                  <p>{product.price + ';-'}</p>
+                </div>
 
-              <button
-                className="productBtn"
-                onClick={() => {
-                  addToCart(product);
-                  toast.success(
-                    `${product.brand} ${product.model} added to cart!`,
-                  );
-                }}
-              >
-                Add To Cart
-              </button>
-            </div>
+                <AddShoppingCartIcon
+                  className="productBtn"
+                  onClick={() => {
+                    addToCart(product);
+                    toast.success(
+                      `${product.brand} ${product.model} added to cart!`,
+                    );
+                  }}
+                >
+                  Add To Cart
+                </AddShoppingCartIcon>
+              </div>
+            </Grow>
           ))}
         </div>
 
@@ -105,19 +142,20 @@ const HomePage = () => {
         <div id="productsContainer2">
           {products.slice(6, 12).map((product) => (
             <div key={product.id} className="productBox">
-              <img
-                src={product.image}
-                alt={`${product.brand} ${product.model}`}
-                className="productImage"
-              />
+              <Link to={`/product/${product.model}`} className="productLink">
+                <img
+                  src={product.image}
+                  alt={`${product.brand} ${product.model}`}
+                  className="productImage"
+                />
+              </Link>
 
               <div className="productBoxText">
-                <h3>{product.brand}</h3>
-                <p>{product.model}</p>
+                <p>{product.brand + ' ' + product.model}</p>
                 <p>{product.price + ';-'}</p>
               </div>
 
-              <button
+              <AddShoppingCartIcon
                 className="productBtn"
                 onClick={() => {
                   addToCart(product);
@@ -127,7 +165,7 @@ const HomePage = () => {
                 }}
               >
                 Add To Cart
-              </button>
+              </AddShoppingCartIcon>
             </div>
           ))}
         </div>
