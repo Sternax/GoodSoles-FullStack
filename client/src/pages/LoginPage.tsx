@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import type { FormEvent } from 'react';
 import toast from 'react-hot-toast';
+import './LoginPage.css';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -24,8 +25,8 @@ const LoginPage = () => {
 
       const result = await response.json();
       if (result.success) {
-        localStorage.setItem('userId', result.user.id.toString());
-        navigate('/login-success');
+        localStorage.setItem('userId', result.user.id);
+        navigate('/profile');
         toast.success('Login successful!');
       } else {
         toast.error(result.message || 'Login failed. Please try again.');
@@ -37,9 +38,9 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
+    <div className="login-div">
       <form onSubmit={handleSubmit}>
-        <label htmlFor="username">
+        <label className="form-input-container" htmlFor="username">
           E-mail
           <input
             type="username"
@@ -49,7 +50,7 @@ const LoginPage = () => {
             required
           />
         </label>
-        <label htmlFor="password">
+        <label className="form-input-container" htmlFor="password">
           Password
           <input
             type="password"
@@ -59,7 +60,7 @@ const LoginPage = () => {
             required
           />
         </label>
-        <button type="submit">Login</button>
+        <button type="submit">SIGN IN</button>
       </form>
       <p>
         Don't have an account? <Link to="/register">REGISTER HERE</Link>.
