@@ -69,17 +69,42 @@
   font-size: 0.95rem;
 }
 
-.remove-btn {
-  align-self: flex-end;
-  margin-top: auto;
-  font-size: 0.8rem;
-  background-color: #ff4d4f;
-  color: white;
+.cart-item-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.favorite-btn {
+  position: absolute;
+  top: 0;
+  right: 0.5rem;
+  background: none;
   border: none;
-  border-radius: 6px;
-  padding: 0.3rem 0.6rem;
+  color: #333;
   cursor: pointer;
 }
+
+.remove-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  color: #333;
+  cursor: pointer;
+}
+
+.remove-btn, .favorite-btn {
+  background: none;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 
 .cart-total {
   margin-top: 1.5rem;

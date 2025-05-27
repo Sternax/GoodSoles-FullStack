@@ -39,10 +39,10 @@ const FavoritesPage = () => {
 
   return (
     <div style={{ padding: '20px' }}>
-      <h2>Dina favoriter</h2>
+      <h2>YOUR FAVORITES</h2>
 
       {favorites.length === 0 ? (
-        <p>Du har inga favoriter ännu.</p>
+        <p>You have no added favorites.</p>
       ) : (
         <ul style={{ listStyle: 'none', padding: 0 }}>
           {favorites.map((product) => (

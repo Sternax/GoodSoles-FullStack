@@ -36,7 +36,7 @@ export default function Navbar() {
         </div>
 
         <Link to="/cart">
-          <IconButton color="inherit" aria-label="cart">
+          <IconButton style={{ color: 'black' }} aria-label="cart">
             <Badge
               badgeContent={cart.reduce(
                 (total, item) => total + item.quantity,
