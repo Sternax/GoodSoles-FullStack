@@ -23,11 +23,6 @@ const imageCarousel = () => {
     >
       <div>
         <img className="carouselImage" src="goodsoles1-hero.png" alt="Carousel Image" />
-        <img
-          className="carouselImage"
-          src="jordan-hero.jpg"
-          alt="Carousel Image"
-        />
       </div>
       <div>
         <img
