@@ -11,8 +11,7 @@
   left: 0;
   right: 0;
   z-index: 10;
-
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Hamburger button */
@@ -109,4 +108,10 @@
 .menu-items li {
   margin-bottom: 1.5rem;
   cursor: pointer;
+}
+
+.menu-items a {
+  text-decoration: none;
+  color: black;
+  transition: color 0.3s ease;
 }
