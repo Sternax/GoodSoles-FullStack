@@ -24,7 +24,7 @@ const LoginPage = () => {
 
       const result = await response.json();
       if (result.success) {
-        localStorage.setItem('userId', result.user.id);
+        localStorage.setItem('userId', result.user.id.toString());
         navigate('/login-success');
         toast.success('Login successful!');
       } else {

@@ -5,7 +5,6 @@ import type { Product } from '../components/productsAPI';
 import { fetchProducts } from '../components/productsAPI';
 import { useCart } from '../components/CartContext';
 import toast from 'react-hot-toast';
-import { Grow } from '@mui/material';
 
 const HomePage = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -44,38 +43,31 @@ const HomePage = () => {
       </div>
       <div id="homePageContent">
         <div id="productsContainer1">
-          {products.slice(0, 6).map((product, index) => (
-            <Grow
-              in={!loading}
-              style={{ transformOrigin: '0 0 0' }}
-              timeout={500 + index * 400}
-              key={product.id}
-            >
-              <div key={product.id} className="productBox">
-                <img
-                  src={product.image}
-                  alt={`${product.brand} ${product.model}`}
-                  className="productImage"
-                />
-                <div className="productBoxText">
-                  <h3>{product.brand}</h3>
-                  <p>{product.model}</p>
-                  <p>{product.price + ';-'}</p>
-                </div>
-
-                <button
-                  className="productBtn"
-                  onClick={() => {
-                    addToCart(product);
-                    toast.success(
-                      `${product.brand} ${product.model} added to cart!`,
-                    );
-                  }}
-                >
-                  Add To Cart
-                </button>
+          {products.slice(0, 6).map((product) => (
+            <div key={product.id} className="productBox">
+              <img
+                src={product.image}
+                alt={`${product.brand} ${product.model}`}
+                className="productImage"
+              />
+              <div className="productBoxText">
+                <h3>{product.brand}</h3>
+                <p>{product.model}</p>
+                <p>{product.price + ';-'}</p>
               </div>
-            </Grow>
+
+              <button
+                className="productBtn"
+                onClick={() => {
+                  addToCart(product);
+                  toast.success(
+                    `${product.brand} ${product.model} added to cart!`,
+                  );
+                }}
+              >
+                Add To Cart
+              </button>
+            </div>
           ))}
         </div>
 
