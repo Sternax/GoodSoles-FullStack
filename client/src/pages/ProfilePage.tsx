@@ -2,9 +2,11 @@ import Avatar from '@mui/material/Avatar';
 import { useState, useEffect } from 'react';
 import type { FormEvent, ChangeEvent } from 'react';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import './ProfilePage.css';
 
 const ProfilePage = () => {
+  const navigate = useNavigate();
   const userId = localStorage.getItem('userId') || '';
 
   const [form, setForm] = useState({
@@ -81,6 +83,12 @@ const ProfilePage = () => {
     }
   };
 
+  const signOut = () => {
+    localStorage.removeItem('userId');
+    navigate('/login');
+    toast.success('You have been signed out successfully.');
+  };
+
   if (loading) return <p>Loading Profile...</p>;
 
   return (
@@ -102,6 +110,7 @@ const ProfilePage = () => {
             {form.dateofbirth}
           </p>
           <button onClick={() => setIsEditing(true)}>Edit Profile</button>
+          <button onClick={signOut}>SIGN OUT</button>
         </div>
       ) : (
         <form onSubmit={handleSubmit}>

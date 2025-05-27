@@ -1,0 +1,50 @@
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+form button {
+  display: block;
+  margin: 1rem auto 1rem;
+  padding: 0.55rem 1.5rem;
+  background-color: green;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 500;
+  width: fit-content;
+  border: none;
+}
+
+.login-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 50px;
+}
+
+.form-input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5rem 0;
+  font-weight: 600;
+}
+
+.form-input-container input {
+  padding: 0.7rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.form-input-container input:focus {
+  outline: none;
+  border-color: green;
+}
