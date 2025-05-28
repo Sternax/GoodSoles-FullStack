@@ -4,6 +4,7 @@ import type { FormEvent, ChangeEvent } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import './ProfilePage.css';
+import { Link } from 'react-router-dom';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -89,34 +90,38 @@ const ProfilePage = () => {
     toast.success('You have been signed out successfully.');
   };
 
-  if (loading) return <p>Loading Profile...</p>;
+  if (loading)
+    return (
+      <div className="loadingContainer">
+        <h3>YOU MUST SIGN IN TO VIEW YOUR PROFILE</h3>
+        <Link to="/login">
+          <button>SIGN IN</button>
+        </Link>
+      </div>
+    );
 
   return (
     <div className="profilePageContainer">
-      <h1>Profile Page</h1>
-      <Avatar />
+      <h1>PROFILE</h1>
+      <Avatar className="profileAvatar" sx={{ width: 60, height: 60 }}>
+        {form.firstname ? form.firstname.charAt(0).toUpperCase() : ''}
+      </Avatar>
       {!isEditing ? (
-        <div>
-          <p>
-            <strong>First Name:</strong>
-            {form.firstname}
-          </p>
-          <p>
-            <strong>Last Name:</strong>
-            {form.lastname}
-          </p>
-          <p>
-            <strong>Date of Birth:</strong>
-            {form.dateofbirth}
-          </p>
-          <button onClick={() => setIsEditing(true)}>Edit Profile</button>
+        <div className="profileDetails">
+          <h3>NAME</h3>
+          <p>{form.firstname + ' ' + form.lastname}</p>
+          <h3>DATE OF BIRTH:</h3>
+          <p>{form.dateofbirth}</p>
+          <button onClick={() => setIsEditing(true)}>
+            EDIT <span>&#9998;</span>
+          </button>
           <button onClick={signOut}>SIGN OUT</button>
         </div>
       ) : (
         <form onSubmit={handleSubmit}>
-          <div>
+          <div className="formDiv">
             {' '}
-            <label htmlFor="firstname">First Name:</label>
+            <label htmlFor="firstname">FIRST NAME</label>
             <input
               type="text"
               id="firstname"
@@ -127,9 +132,9 @@ const ProfilePage = () => {
             />
           </div>
 
-          <div>
+          <div className="formDiv">
             {' '}
-            <label htmlFor="lastname">Last Name:</label>
+            <label htmlFor="lastname">LAST NAME</label>
             <input
               type="text"
               id="lastname"
@@ -140,9 +145,9 @@ const ProfilePage = () => {
             />
           </div>
 
-          <div>
+          <div className="formDiv">
             {' '}
-            <label htmlFor="dateofbirth">Date of Birth:</label>
+            <label htmlFor="dateofbirth">DATE OF BIRTH</label>
             <input
               type="date"
               id="dateofbirth"
@@ -152,9 +157,9 @@ const ProfilePage = () => {
               required
             />
           </div>
-          <button type="submit">Save</button>
+          <button type="submit">SAVE</button>
           <button type="button" onClick={() => setIsEditing(false)}>
-            Cancel Edit
+            CANCEL EDIT
           </button>
         </form>
       )}

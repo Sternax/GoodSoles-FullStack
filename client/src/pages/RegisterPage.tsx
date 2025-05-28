@@ -1,9 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import type { FormEvent } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
+import './RegisterPage.css';
 
 const RegisterPage = () => {
   const navigate = useNavigate();
+  const [agreed, setAgreed] = useState(false);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -37,7 +40,7 @@ const RegisterPage = () => {
 
   return (
     <div className="register-page">
-      <h1>Register</h1>
+      <h1>REGISTER</h1>
       <form onSubmit={handleSubmit} method="post">
         <div className="form-group">
           <label htmlFor="username">E-mail</label>
@@ -59,7 +62,21 @@ const RegisterPage = () => {
             required
           />
         </div>
-        <button type="submit">Register</button>
+
+        <label htmlFor="terms">
+          <input
+            type="checkbox"
+            id="terms"
+            checked={agreed}
+            onChange={(e) => setAgreed(e.target.checked)}
+            required
+          />
+          I AGREE TO TERMS AND SERVICES
+        </label>
+
+        <button type="submit" disabled={!agreed}>
+          Register
+        </button>
       </form>
     </div>
   );

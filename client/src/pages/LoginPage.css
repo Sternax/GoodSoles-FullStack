@@ -1,4 +1,4 @@
-form {
+.login-form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,6 +21,10 @@ form button {
   border: none;
 }
 
+form label {
+  color: #333;
+}
+
 .login-div {
   display: flex;
   flex-direction: column;
@@ -33,21 +37,15 @@ form button {
 .form-input-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   margin: 0.5rem 0;
   font-weight: 400;
 }
 
-.form-input-container label {
-  margin-bottom: 20px;
-  color: #333;
-}
-
 .form-input-container input {
   padding: 0.7rem;
-  border-radius: 8px;
+  border-radius: 0px;
   border: 1px solid #ccc;
+  width: 80vw;
 }
 
 .form-input-container input:focus {

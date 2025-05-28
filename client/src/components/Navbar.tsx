@@ -5,6 +5,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { IconButton } from '@mui/material';
 import { useCart } from './CartContext';
 import { Link } from 'react-router-dom';
+import Grow from '@mui/material/Grow';
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -54,17 +55,28 @@ export default function Navbar() {
       {/* Slide-in menu */}
       <div className={`side-menu ${menuOpen ? 'show' : ''}`}>
         <ul className="menu-items">
-          <li onClick={closeMenu}>SNEAKERS</li>
-          <li onClick={closeMenu}>SALE</li>
-          <li onClick={closeMenu}>
-            <Link to="/favorites"> FAVORITES </Link>
-          </li>
-          <li onClick={closeMenu}>
-            <Link to="/login">SIGN IN</Link>
-          </li>
-          <li onClick={closeMenu}>
-            <Link to="/profile">PROFILE</Link>
-          </li>
+          {['SNEAKERS', 'SALE', 'FAVORITES', 'SIGN IN', 'PROFILE'].map(
+            (item, index) => (
+              <Grow
+                in={menuOpen}
+                timeout={1000 + index * 200}
+                key={item}
+                style={{ transformOrigin: '0 0 0' }}
+              >
+                <li onClick={closeMenu}>
+                  {item === 'FAVORITES' ||
+                  item === 'SIGN IN' ||
+                  item === 'PROFILE' ? (
+                    <Link to={`/${item.toLowerCase().replace(' ', '')}`}>
+                      {item}
+                    </Link>
+                  ) : (
+                    item
+                  )}
+                </li>
+              </Grow>
+            ),
+          )}
         </ul>
       </div>
     </>
