@@ -11,6 +11,9 @@ import 'react-multi-carousel/lib/styles.css';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { Link } from 'react-router-dom';
 
+const slugify = (str: string) =>
+  str.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '');
+
 const HomePage = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -80,7 +83,7 @@ const HomePage = () => {
           {products.slice(0, 6).map((product, index) => (
             <Grow in={true} timeout={300 + index * 500} key={product.id}>
               <div key={product.id} className="productBox">
-                <Link to={`/product/${product.model}`} className="productLink">
+                <Link to={`/product/${slugify(product.model)}`} className="productLink">
                   <img
                     src={product.image}
                     alt={`${product.brand} ${product.model}`}
@@ -142,7 +145,7 @@ const HomePage = () => {
         <div id="productsContainer2">
           {products.slice(6, 12).map((product) => (
             <div key={product.id} className="productBox">
-              <Link to={`/product/${product.model}`} className="productLink">
+              <Link to={`/product/${slugify(product.model)}`} className="productLink">
                 <img
                   src={product.image}
                   alt={`${product.brand} ${product.model}`}
