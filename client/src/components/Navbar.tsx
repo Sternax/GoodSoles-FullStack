@@ -56,26 +56,27 @@ export default function Navbar() {
       <div className={`side-menu ${menuOpen ? 'show' : ''}`}>
         <ul className="menu-items">
           {['SNEAKERS', 'SALE', 'FAVORITES', 'SIGN IN', 'PROFILE'].map(
-            (item, index) => (
-              <Grow
-                in={menuOpen}
-                timeout={1000 + index * 200}
-                key={item}
-                style={{ transformOrigin: '0 0 0' }}
-              >
-                <li onClick={closeMenu}>
-                  {item === 'FAVORITES' ||
-                  item === 'SIGN IN' ||
-                  item === 'PROFILE' ? (
-                    <Link to={`/${item.toLowerCase().replace(' ', '')}`}>
-                      {item}
-                    </Link>
-                  ) : (
-                    item
-                  )}
-                </li>
-              </Grow>
-            ),
+            (item, index) => {
+              let path = '';
+              if (item === 'SIGN IN') {
+                path = '/login';
+              } else if (item === 'FAVORITES' || item === 'PROFILE') {
+                path = `/${item.toLowerCase().replace(' ', '')}`;
+              }
+
+              return (
+                <Grow
+                  in={menuOpen}
+                  timeout={1000 + index * 200}
+                  key={item}
+                  style={{ transformOrigin: '0 0 0' }}
+                >
+                  <li onClick={closeMenu}>
+                    {path ? <Link to={path}>{item}</Link> : item}
+                  </li>
+                </Grow>
+              );
+            },
           )}
         </ul>
       </div>
