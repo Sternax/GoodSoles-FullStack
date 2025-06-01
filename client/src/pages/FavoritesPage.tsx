@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import './FavoritesPage.css';
 
 interface Product {
   id: number;
@@ -38,33 +40,33 @@ const FavoritesPage = () => {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h2>YOUR FAVORITES</h2>
+    <div className="favorites-container">
+      <h2 className="favorites-title">YOUR FAVORITES</h2>
 
       {favorites.length === 0 ? (
         <p>You have no added favorites.</p>
       ) : (
-        <ul style={{ listStyle: 'none', padding: 0 }}>
+        <ul className="favorite-list">
           {favorites.map((product) => (
-            <li
-              key={product.id}
-              style={{
-                marginBottom: '20px',
-                border: '1px solid #ccc',
-                padding: '10px',
-                borderRadius: '8px',
-              }}
-            >
+            <li key={product.id} className="favorite-item">
+              <button
+                className="remove-favorite-btn"
+                onClick={() => removeFavorite(product.id)}
+                title="Remove from favorites"
+              >
+                <DeleteForeverIcon />
+              </button>
               <img
                 src={product.image}
                 alt={product.model}
-                style={{ width: '100%', maxWidth: '300px', height: 'auto' }}
+                className="favorite-image"
               />
-              <h3>
-                {product.brand} {product.model}
-              </h3>
-              <p>{product.price} kr</p>
-              <button onClick={() => removeFavorite(product.id)}>Ta bort</button>
+              <div className="favorite-details">
+                <h3 className="favorite-title">
+                  {product.brand} {product.model}
+                </h3>
+                <p className="favorite-price">{product.price} kr</p>
+              </div>
             </li>
           ))}
         </ul>
