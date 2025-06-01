@@ -3,10 +3,13 @@ import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 import './CartPage.css';
 
 const CartPage = () => {
-  const { cart, removeFromCart } = useCart();
+  const { cart, removeFromCart, increaseQuantity, decreaseQuantity } =
+    useCart();
 
   const storedUserId = localStorage.getItem('userId');
   const userId = storedUserId ? Number(storedUserId) : null;
@@ -34,14 +37,11 @@ const CartPage = () => {
 
       if (response.ok) {
         toast.success('Added to favorites!');
-        console.log('Favorite added:', productId);
       } else {
         const errorData = await response.json();
-        console.error('Favorite error:', errorData);
         toast.error(errorData.message || 'Something went wrong.');
       }
     } catch (error) {
-      console.error('Favorite error:', error);
       toast.error('Could not add to favorites.');
     }
   };
@@ -63,34 +63,51 @@ const CartPage = () => {
                     alt={item.model}
                     className="cart-item-image"
                   />
+
+                  <button
+                    className="favorite-btn"
+                    onClick={() => addToFavorites(item.id)}
+                    title="Add to favorites"
+                  >
+                    <FavoriteIcon />
+                  </button>
+
                   <div className="cart-item-details">
                     <div className="cart-item-info">
                       <div className="cart-item-title">
                         <strong>{item.brand}</strong> {item.model}
                       </div>
-                      <div className="cart-item-quantity">
-                        Quantity: {item.quantity}
-                      </div>
-                      <div className="cart-item-price">
-                        {item.price * item.quantity} kr
-                      </div>
-                    </div>
 
-                    <div className="cart-item-buttons">
-                      <button
-                        className="favorite-btn"
-                        onClick={() => addToFavorites(item.id)}
-                        title="Add to favorites"
-                      >
-                        <FavoriteIcon />
-                      </button>
-                      <button
-                        className="remove-btn"
-                        onClick={() => removeFromCart(item.id)}
-                        title="Remove from cart"
-                      >
-                        <DeleteForeverIcon />
-                      </button>
+                      <div className="quantity-buttons">
+                        <button
+                          onClick={() => decreaseQuantity(item.id)}
+                          title="Minska"
+                        >
+                          <RemoveIcon />
+                        </button>
+                        <span className="cart-item-quantity">
+                          {item.quantity}
+                        </span>
+                        <button
+                          onClick={() => increaseQuantity(item.id)}
+                          title="Öka"
+                        >
+                          <AddIcon />
+                        </button>
+                      </div>
+
+                      <div className="price-and-actions">
+                        <span className="cart-item-price">
+                          {item.price * item.quantity} kr
+                        </span>
+                        <button
+                          className="remove-btn"
+                          onClick={() => removeFromCart(item.id)}
+                          title="Ta bort"
+                        >
+                          <DeleteForeverIcon />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </li>
@@ -98,11 +115,11 @@ const CartPage = () => {
             </ul>
 
             <div className="cart-total">Total: {totalPrice} kr</div>
-          </div>
 
-          <Link to="/checkout" className="checkout-btn">
-            GO TO CHECKOUT
-          </Link>
+            <Link to="/checkout" className="checkout-btn">
+              GO TO CHECKOUT
+            </Link>
+          </div>
         </>
       )}
     </div>

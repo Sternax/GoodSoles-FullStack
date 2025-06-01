@@ -8,7 +8,7 @@
 }
 
 .cart-title {
-  font-size: 2rem;
+  font-size: 1.5rem;
   margin-bottom: 1.5rem;
 }
 
@@ -28,14 +28,13 @@
   padding: 0.75rem 0;
   border-bottom: 1px solid #ddd;
   gap: 0.75rem;
+  position: relative;
 }
 
 .cart-item-image {
-  width: 80px;
+  width: 110px;
   height: 80px;
   object-fit: contain;
-  border-radius: 8px;
-  background: #f8f8f8;
   flex-shrink: 0;
 }
 
@@ -55,47 +54,55 @@
 }
 
 .cart-item-title {
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   font-weight: 500;
 }
 
 .cart-item-quantity {
-  font-size: 0.85rem;
-  color: #666;
+  font-size: 0.95rem;
+  color: #333;
+  min-width: 1rem;
+  text-align: center;
 }
 
 .cart-item-price {
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 1.25rem;
 }
 
 .cart-item-buttons {
   display: flex;
-  justify-content: space-between;
-  margin-top: 1rem;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.6rem;
+  position: absolute;
+  bottom: 0.25rem;
+  right: 0.5rem;
 }
 
-.favorite-btn {
-  position: absolute;
-  top: 0;
-  right: 0.5rem;
+.quantity-buttons {
+  display: flex;
+  align-items: center;
+  margin: 0.15rem 0;
+}
+
+.quantity-buttons button {
   background: none;
   border: none;
-  color: #333;
   cursor: pointer;
+  padding: 0.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+.quantity-buttons svg {
+  font-size: 1.2rem;
+}
+
+.favorite-btn,
 .remove-btn {
-  position: absolute;
-  bottom: 0;
-  right: 0.5rem;
-  background: none;
-  border: none;
-  color: #333;
-  cursor: pointer;
-}
-
-.remove-btn, .favorite-btn {
+  position: static;
   background: none;
   border: none;
   color: #333;
@@ -105,6 +112,17 @@
   justify-content: center;
 }
 
+.favorite-btn {
+  position: absolute;
+  right: 0.5rem;
+  z-index: 2;
+}
+
+.remove-btn {
+  position: absolute;
+  right: 0.5rem;
+  z-index: 2;
+}
 
 .cart-total {
   margin-top: 1.5rem;
@@ -113,9 +131,16 @@
   text-align: left;
 }
 
+.price-and-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .checkout-btn {
   display: block;
-  margin: 1rem auto 0;
+  margin: 2rem auto 0;
   padding: 0.75rem 1.5rem;
   background-color: green;
   color: white;
