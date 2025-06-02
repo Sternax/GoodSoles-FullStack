@@ -3,6 +3,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import './FavoritesPage.css';
 import { useFavorites } from '../components/FavoritesContext';
 import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 
 interface Product {
   id: number;
@@ -11,6 +12,12 @@ interface Product {
   price: number;
   image: string;
 }
+
+const slugify = (str: string) =>
+  str
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9\-]/g, '');
 
 const FavoritesPage = () => {
   const [favoriteProducts, setFavoriteProducts] = useState<Product[]>([]);
@@ -75,11 +82,13 @@ const FavoritesPage = () => {
               >
                 <DeleteForeverIcon />
               </button>
-              <img
-                src={product.image}
-                alt={product.model}
-                className="favorite-image"
-              />
+              <Link to={`/product/${slugify(product.model)}`}>
+                <img
+                  src={product.image}
+                  alt={product.model}
+                  className="favorite-image"
+                />
+              </Link>
               <div className="favorite-details">
                 <h3 className="favorite-title">
                   {product.brand} {product.model}
