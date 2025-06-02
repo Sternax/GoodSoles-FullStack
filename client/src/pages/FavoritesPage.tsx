@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import './FavoritesPage.css';
+import { useFavorites } from '../components/FavoritesContext';
+import toast from 'react-hot-toast';
 
 interface Product {
   id: number;
@@ -11,47 +13,64 @@ interface Product {
 }
 
 const FavoritesPage = () => {
-  const [favorites, setFavorites] = useState<Product[]>([]);
+  const [favoriteProducts, setFavoriteProducts] = useState<Product[]>([]);
+  const { favorites, fetchFavorites } = useFavorites();
   const userId = localStorage.getItem('userId');
 
+  const fetchFavoriteProducts = async () => {
+    if (!userId) return;
+
+    try {
+      const res = await fetch(`http://localhost:8080/favorites/${userId}`);
+      const data: Product[] = await res.json();
+      setFavoriteProducts(data);
+    } catch (err) {
+      console.error('Error fetching favorite products:', err);
+    }
+  };
+
   useEffect(() => {
-    if (!userId) return;
+    fetchFavoriteProducts();
+  }, [favorites]);
 
-    fetch(`http://localhost:8080/favorites/${userId}`)
-      .then((res) => res.json())
-      .then((data: Product[]) => setFavorites(data))
-      .catch((err) => console.error('Error fetching favorites:', err));
-  }, [userId]);
+  const handleRemove = async (productId: number) => {
+    try {
+      const res = await fetch('http://localhost:8080/favorites', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          user_id: Number(userId),
+          product_id: productId,
+        }),
+      });
 
-  const removeFavorite = (productId: number) => {
-    if (!userId) return;
-
-    fetch('http://localhost:8080/favorites', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ user_id: Number(userId), product_id: productId }),
-    })
-      .then(() => {
-        setFavorites((prev) => prev.filter((item) => item.id !== productId));
-      })
-      .catch((err) => console.error('Error removing favorite:', err));
+      if (res.ok) {
+        toast.success('Removed from favorites');
+        await fetchFavorites();
+        await fetchFavoriteProducts();
+      } else {
+        toast.error('Failed to remove from favorites');
+        console.error('Server returned error:', await res.text());
+      }
+    } catch (err) {
+      console.error('Error removing favorite:', err);
+      toast.error('Error removing favorite');
+    }
   };
 
   return (
     <div className="favorites-container">
       <h2 className="favorites-title">YOUR FAVORITES</h2>
 
-      {favorites.length === 0 ? (
+      {favoriteProducts.length === 0 ? (
         <p>You have no added favorites.</p>
       ) : (
         <ul className="favorite-list">
-          {favorites.map((product) => (
+          {favoriteProducts.map((product) => (
             <li key={product.id} className="favorite-item">
               <button
                 className="remove-favorite-btn"
-                onClick={() => removeFavorite(product.id)}
+                onClick={() => handleRemove(product.id)}
                 title="Remove from favorites"
               >
                 <DeleteForeverIcon />
