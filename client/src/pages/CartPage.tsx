@@ -10,14 +10,23 @@ import { useEffect } from 'react';
 import { useFavorites } from '../components/FavoritesContext';
 import './CartPage.css';
 
+const slugify = (str: string) =>
+  str
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9\-]/g, '');
+
 const CartPage = () => {
-  const { cart, removeFromCart, increaseQuantity, decreaseQuantity } = useCart();
+  const { cart, removeFromCart, increaseQuantity, decreaseQuantity } =
+    useCart();
   const { favorites, toggleFavorite, isFavorite } = useFavorites();
 
-  const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const totalPrice = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0,
+  );
 
-  useEffect(() => {
-  }, [favorites]);
+  useEffect(() => {}, [favorites]);
 
   return (
     <div className="cart-page">
@@ -34,24 +43,32 @@ const CartPage = () => {
 
                 return (
                   <li className="cart-item" key={item.id}>
-                    <img
-                      src={item.image}
-                      alt={item.model}
-                      className="cart-item-image"
-                    />
+                    <Link to={`/product/${slugify(item.model)}`}>
+                      <img
+                        src={item.image}
+                        alt={item.model}
+                        className="cart-item-image"
+                      />
+                    </Link>
 
                     <button
                       className="favorite-btn"
                       onClick={() => {
                         toggleFavorite(item.id)
                           .then(() => {
-                            toast.success(favorite ? 'Removed from favorites' : 'Added to favorites');
+                            toast.success(
+                              favorite
+                                ? 'Removed from favorites'
+                                : 'Added to favorites',
+                            );
                           })
                           .catch(() => {
                             toast.error('Failed to update favorites');
                           });
                       }}
-                      title={favorite ? 'Remove from favorites' : 'Add to favorites'}
+                      title={
+                        favorite ? 'Remove from favorites' : 'Add to favorites'
+                      }
                     >
                       {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                     </button>
@@ -63,11 +80,19 @@ const CartPage = () => {
                         </div>
 
                         <div className="quantity-buttons">
-                          <button onClick={() => decreaseQuantity(item.id)} title="Minska">
+                          <button
+                            onClick={() => decreaseQuantity(item.id)}
+                            title="Minska"
+                          >
                             <RemoveIcon />
                           </button>
-                          <span className="cart-item-quantity">{item.quantity}</span>
-                          <button onClick={() => increaseQuantity(item.id)} title="Öka">
+                          <span className="cart-item-quantity">
+                            {item.quantity}
+                          </span>
+                          <button
+                            onClick={() => increaseQuantity(item.id)}
+                            title="Öka"
+                          >
                             <AddIcon />
                           </button>
                         </div>
