@@ -18,11 +18,58 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Hämta produktdata
 app.get('/', (req, res) => {
   database.all('SELECT * FROM productTable').then((productTable) => {
     res.send(productTable);
     // console.log('Product table:', productTable);
   });
+});
+
+//lägga till och ta bort produkter
+app.post('/products', express.json(), async (req, res) => {
+  const { brand, model, price, image } = req.body;
+
+  if (!brand || !model || !price || !image) {
+    return res.status(400).json({
+      success: false,
+      message: 'All fields are required',
+    });
+  }
+
+  database
+    .run(
+      'INSERT INTO productTable (brand, model, price, image) VALUES (?, ?, ?, ?)',
+      [brand, model, price, image],
+    )
+    .then(() =>
+      res
+        .status(201)
+        .json({ success: true, message: 'Product added successfully' }),
+    )
+    .catch((error) => {
+      console.error('Error adding product:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Internal server error, failed to add product',
+      });
+    });
+});
+
+app.delete('/products/:id', (req, res) => {
+  const productId = req.params.id;
+  database
+    .run('DELETE FROM productTable WHERE id = ?', [productId])
+    .then(() =>
+      res.json({ success: true, message: 'Product deleted successfully' }),
+    )
+    .catch((error) => {
+      console.error('Error deleting product:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Internal server error, failed to delete product',
+      });
+    });
 });
 
 app.post(
@@ -167,12 +214,15 @@ app.post(
 app.get('/favorites/:userId', async (req, res) => {
   const userId = req.params.userId;
   try {
-    const favorites = await database.all(`
+    const favorites = await database.all(
+      `
       SELECT productTable.*
       FROM favoritesTable
       JOIN productTable ON favoritesTable.product_id = productTable.id
       WHERE favoritesTable.user_id = ?
-    `, [userId]);
+    `,
+      [userId],
+    );
 
     res.json(favorites);
   } catch (err) {
@@ -184,10 +234,13 @@ app.get('/favorites/:userId', async (req, res) => {
 app.post('/favorites', async (req, res) => {
   const { user_id, product_id } = req.body;
   try {
-    await database.run(`
+    await database.run(
+      `
       INSERT INTO favoritesTable (user_id, product_id)
       VALUES (?, ?)
-    `, [user_id, product_id]);
+    `,
+      [user_id, product_id],
+    );
 
     res.json({ message: 'Favorit tillagd' });
   } catch (err) {
@@ -203,10 +256,13 @@ app.post('/favorites', async (req, res) => {
 app.delete('/favorites', async (req, res) => {
   const { user_id, product_id } = req.body;
   try {
-    await database.run(`
+    await database.run(
+      `
       DELETE FROM favoritesTable
       WHERE user_id = ? AND product_id = ?
-    `, [user_id, product_id]);
+    `,
+      [user_id, product_id],
+    );
 
     res.json({ message: 'Favorit borttagen' });
   } catch (err) {
