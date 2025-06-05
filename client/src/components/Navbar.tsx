@@ -55,29 +55,36 @@ export default function Navbar() {
       {/* Slide-in menu */}
       <div className={`side-menu ${menuOpen ? 'show' : ''}`}>
         <ul className="menu-items">
-          {['SNEAKERS', 'SALE', 'FAVORITES', 'SIGN IN', 'PROFILE'].map(
-            (item, index) => {
-              let path = '';
-              if (item === 'SIGN IN') {
-                path = '/login';
-              } else if (item === 'FAVORITES' || item === 'PROFILE') {
-                path = `/${item.toLowerCase().replace(' ', '')}`;
-              }
+          {[
+            'SNEAKERS',
+            'SALE',
+            'FAVORITES',
+            'SIGN IN',
+            'PROFILE',
+            'ADMIN PAGE',
+          ].map((item, index) => {
+            let path = '';
+            if (item === 'SIGN IN') {
+              path = '/login';
+            } else if (item === 'FAVORITES' || item === 'PROFILE') {
+              path = `/${item.toLowerCase().replace(' ', '')}`;
+            } else if (item === 'ADMIN PAGE') {
+              path = '/admin';
+            }
 
-              return (
-                <Grow
-                  in={menuOpen}
-                  timeout={1000 + index * 200}
-                  key={item}
-                  style={{ transformOrigin: '0 0 0' }}
-                >
-                  <li onClick={closeMenu}>
-                    {path ? <Link to={path}>{item}</Link> : item}
-                  </li>
-                </Grow>
-              );
-            },
-          )}
+            return (
+              <Grow
+                in={menuOpen}
+                timeout={1000 + index * 200}
+                key={item}
+                style={{ transformOrigin: '0 0 0' }}
+              >
+                <li onClick={closeMenu}>
+                  {path ? <Link to={path}>{item}</Link> : item}
+                </li>
+              </Grow>
+            );
+          })}
         </ul>
       </div>
     </>

@@ -1,0 +1,76 @@
+.admin-page form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.admin-page h1 {
+  text-align: center;
+  margin: 20px 0 20px 0;
+}
+
+.admin-page input {
+  padding: 0.7rem;
+  margin-bottom: 10px;
+  width: 80vw;
+}
+
+.admin-page input:active {
+  border-color: green;
+}
+
+.admin-page input:focus {
+  outline: none;
+  border-color: green;
+}
+
+#delete-button {
+  padding: 0.35rem 1.5rem;
+  background-color: red;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 500;
+  width: fit-content;
+  border: none;
+}
+
+.product-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-list ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.product-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  text-align: center;
+  width: 80vw;
+  margin-bottom: 10px;
+}
+
+.product-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f8f8f8;
+}
+
+.product-item img {
+  width: 150px;
+  display: block;
+}

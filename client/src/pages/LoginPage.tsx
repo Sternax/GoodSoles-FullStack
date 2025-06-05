@@ -14,6 +14,14 @@ const LoginPage = () => {
       password: string;
     };
 
+    // Enkel, inte säker, admin login för demo
+    if (data.username === 'admin@admin.com' && data.password === 'admin123') {
+      toast.success('Admin login successful!');
+      localStorage.setItem('userId', 'admin');
+      navigate('/admin');
+      return;
+    }
+
     try {
       const response = await fetch('http://localhost:8080/login', {
         method: 'POST',
